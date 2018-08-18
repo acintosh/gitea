@@ -1,0 +1,5 @@
+.env
+
+# Ignore postgres + gitea volume
+postgres
+gitea
