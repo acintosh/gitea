@@ -4,6 +4,7 @@ git.example.com {
 	tls ssl@example.com
 
 	proxy / localhost:3005 {
+		websocket
 		transparent
 	}
 }
