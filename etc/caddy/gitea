@@ -1,0 +1,9 @@
+git.example.com {
+	gzip
+
+	tls ssl@example.com
+
+	proxy / localhost:3005 {
+		transparent
+	}
+}
