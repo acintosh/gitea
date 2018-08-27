@@ -1,0 +1,34 @@
+version: '3'
+services:
+
+  db:
+    image: postgres:10-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - back
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  app:
+    # https://github.com/kapdap/docker-gitea-rpi/
+    image: kapdap/gitea-rpi
+    restart: always
+    networks:
+      - front
+      - back
+    ports:
+      - "3005:3000"
+      - "3020:22"
+    depends_on:
+      - db
+    env_file: .env
+    volumes:
+      - ./gitea:/data
+
+networks:
+  front:
+  back:
+    internal: true
