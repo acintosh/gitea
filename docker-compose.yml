@@ -7,7 +7,7 @@ networks:
 
 services:
   db:
-    image: postgres:10-alpine
+    image: postgres:13-alpine
     container_name: gitea-db
     restart: always
     environment:
