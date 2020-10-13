@@ -1,8 +1,14 @@
 version: '3'
-services:
 
+networks:
+  front:
+  back:
+    internal: true
+
+services:
   db:
     image: postgres:10-alpine
+    container_name: gitea-db
     restart: always
     environment:
       - POSTGRES_USER=gitea
@@ -13,21 +19,19 @@ services:
       - ./postgres:/var/lib/postgresql/data
 
   app:
-    image: gitea/gitea:1.5
+    image: gitea/gitea:latest
     restart: always
+    container_name: gitea
     networks:
       - front
       - back
     ports:
-      - "3005:3000"
-      - "3020:22"
+      - "80:3000"
+      - "2022:22"
     depends_on:
       - db
     env_file: .env
     volumes:
       - ./gitea:/data
-
-networks:
-  front:
-  back:
-    internal: true
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
